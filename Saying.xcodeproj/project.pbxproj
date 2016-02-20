@@ -16,6 +16,9 @@
 		C7FB9CCD1C63102700856B08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FB9CCB1C63102700856B08 /* LaunchScreen.storyboard */; };
 		C7FB9CD81C63102700856B08 /* SayingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FB9CD71C63102700856B08 /* SayingTests.swift */; };
 		C7FB9CE31C63102700856B08 /* SayingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FB9CE21C63102700856B08 /* SayingUITests.swift */; };
+		C7FB9CF11C63111700856B08 /* SayingFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FB9CF01C63111700856B08 /* SayingFetcher.swift */; };
+		C7FB9CF41C6311EC00856B08 /* Saying.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FB9CF31C6311EC00856B08 /* Saying.swift */; };
+		C7FB9CF61C63168B00856B08 /* AddSayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FB9CF51C63168B00856B08 /* AddSayingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		C7FB9CDE1C63102700856B08 /* SayingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SayingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FB9CE21C63102700856B08 /* SayingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SayingUITests.swift; sourceTree = "<group>"; };
 		C7FB9CE41C63102700856B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7FB9CF01C63111700856B08 /* SayingFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SayingFetcher.swift; sourceTree = "<group>"; };
+		C7FB9CF31C6311EC00856B08 /* Saying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Saying.swift; sourceTree = "<group>"; };
+		C7FB9CF51C63168B00856B08 /* AddSayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSayingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +107,16 @@
 		C7FB9CBC1C63102700856B08 /* Saying */ = {
 			isa = PBXGroup;
 			children = (
+				C7FB9CF21C6311E100856B08 /* core_data */,
 				C7FB9CBD1C63102700856B08 /* AppDelegate.swift */,
 				C7FB9CC21C63102700856B08 /* MasterViewController.swift */,
 				C7FB9CC41C63102700856B08 /* DetailViewController.swift */,
+				C7FB9CF51C63168B00856B08 /* AddSayingViewController.swift */,
+				C7FB9CF01C63111700856B08 /* SayingFetcher.swift */,
 				C7FB9CC61C63102700856B08 /* Main.storyboard */,
 				C7FB9CC91C63102700856B08 /* Assets.xcassets */,
 				C7FB9CCB1C63102700856B08 /* LaunchScreen.storyboard */,
 				C7FB9CCE1C63102700856B08 /* Info.plist */,
-				C7FB9CBF1C63102700856B08 /* Saying.xcdatamodeld */,
 			);
 			path = Saying;
 			sourceTree = "<group>";
@@ -129,6 +137,15 @@
 				C7FB9CE41C63102700856B08 /* Info.plist */,
 			);
 			path = SayingUITests;
+			sourceTree = "<group>";
+		};
+		C7FB9CF21C6311E100856B08 /* core_data */ = {
+			isa = PBXGroup;
+			children = (
+				C7FB9CBF1C63102700856B08 /* Saying.xcdatamodeld */,
+				C7FB9CF31C6311EC00856B08 /* Saying.swift */,
+			);
+			name = core_data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,8 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7FB9CF41C6311EC00856B08 /* Saying.swift in Sources */,
 				C7FB9CC11C63102700856B08 /* Saying.xcdatamodeld in Sources */,
+				C7FB9CF11C63111700856B08 /* SayingFetcher.swift in Sources */,
 				C7FB9CBE1C63102700856B08 /* AppDelegate.swift in Sources */,
+				C7FB9CF61C63168B00856B08 /* AddSayingViewController.swift in Sources */,
 				C7FB9CC31C63102700856B08 /* MasterViewController.swift in Sources */,
 				C7FB9CC51C63102700856B08 /* DetailViewController.swift in Sources */,
 			);

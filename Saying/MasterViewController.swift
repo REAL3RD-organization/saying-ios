@@ -13,24 +13,45 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
-
-
+    var addButton: UIBarButtonItem? = nil
+    
+    @IBAction func unwindToTable(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? AddSayingViewController {
+            let englishSaying = sourceViewController.englishTextField.text!
+            let koreanSaying = sourceViewController.koreanTextField.text!
+            
+            if (englishSaying != "" && koreanSaying != "") {
+                self.insertNewObject(englishSaying, korean: koreanSaying);
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-        self.navigationItem.rightBarButtonItem = addButton
-        if let split = self.splitViewController {
-            let controllers = split.viewControllers
-            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-        }
+        
+        self.tableView.estimatedRowHeight = 85.0
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.setNeedsLayout()
+        self.tableView.layoutIfNeeded()
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
+        
+        let nav = self.navigationController?.navigationBar
+        nav?.barTintColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
+        nav?.tintColor = UIColor(red: 250/255, green: 200/255, blue: 41/255, alpha: 1)
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        imageView.contentMode = .ScaleAspectFit
+        
+        let image = UIImage(named: "list.png")
+        imageView.image = image
+        
+        navigationItem.titleView = imageView
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,14 +59,15 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         // Dispose of any resources that can be recreated.
     }
 
-    func insertNewObject(sender: AnyObject) {
+    func insertNewObject(english: String, korean: String) {
         let context = self.fetchedResultsController.managedObjectContext
         let entity = self.fetchedResultsController.fetchRequest.entity!
         let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context)
              
         // If appropriate, configure the new managed object.
         // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-        newManagedObject.setValue(NSDate(), forKey: "timeStamp")
+        newManagedObject.setValue(english, forKey: "english_saying")
+        newManagedObject.setValue(korean, forKey: "korean_saying")
              
         // Save the context.
         do {
@@ -73,6 +95,15 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     // MARK: - Table View
+    
+    let LARGE_FONT_SIZE = 18.0
+    let SMALL_FONT_SIZE = 15.0
+    let CELL_CONTENT_WIDTH = 320.0
+    let CELL_CONTENT_MARGIN = 10.0
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.fetchedResultsController.sections?.count ?? 0
@@ -112,7 +143,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         let object = self.fetchedResultsController.objectAtIndexPath(indexPath)
-        cell.textLabel!.text = object.valueForKey("timeStamp")!.description
+        cell.textLabel!.text = object.valueForKey("english_saying")!.description
+        cell.detailTextLabel!.text = object.valueForKey("korean_saying")!.description
     }
 
     // MARK: - Fetched results controller
@@ -124,14 +156,14 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         let fetchRequest = NSFetchRequest()
         // Edit the entity name as appropriate.
-        let entity = NSEntityDescription.entityForName("Event", inManagedObjectContext: self.managedObjectContext!)
+        let entity = NSEntityDescription.entityForName("Saying", inManagedObjectContext: self.managedObjectContext!)
         fetchRequest.entity = entity
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
         
         // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "timeStamp", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "english_saying", ascending: false)
         
         fetchRequest.sortDescriptors = [sortDescriptor]
         
